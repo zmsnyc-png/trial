@@ -96,6 +96,7 @@
   </section>
 
   <script>
+    // Variant switcher
     const img = document.getElementById('productImg');
     document.querySelectorAll('.variant').forEach(v => {
       v.addEventListener('click', () => {
@@ -104,6 +105,58 @@
         v.classList.add('active');
       });
     });
+
+    // Pixel trail — hero only
+    const hero = document.querySelector('.hero');
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.style.cssText = `
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    `;
+    hero.appendChild(canvas);
+
+    function resizeCanvas() {
+      canvas.width  = hero.offsetWidth;
+      canvas.height = hero.offsetHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    let active = false;
+    const dots = [];
+    const DOT_SIZE   = 2;
+    const FADE_SPEED = 3;
+
+    hero.addEventListener('mouseenter', () => active = true);
+    hero.addEventListener('mouseleave', () => active = false);
+
+    hero.addEventListener('mousemove', e => {
+      if (!active) return;
+      const rect = hero.getBoundingClientRect();
+      dots.push({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+        a: 255
+      });
+    });
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = dots.length - 1; i >= 0; i--) {
+        const d = dots[i];
+        ctx.fillStyle = `rgba(255,255,255,${d.a / 255})`;
+        ctx.fillRect(d.x - DOT_SIZE / 2, d.y - DOT_SIZE / 2, DOT_SIZE, DOT_SIZE);
+        d.a -= FADE_SPEED;
+        if (d.a <= 0) dots.splice(i, 1);
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
   </script>
 </body>
 </html>
