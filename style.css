@@ -6,8 +6,8 @@
   --bg:           #ede8df;
   --header-bg:    #ffffff;
   --ink:          #1c1a18;
-  --ink-nav:      #4a4845;
-  --ink-dim:      #9e9b98;
+  --ink-nav:      #ffffff;
+  --ink-dim:      #ffffff;
   --nav-size:     11.5px;
   --nav-tracking: 0.08em;
   --header-h:     52px;
@@ -27,7 +27,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ─── Header ─────────────────────────────────────────── */
 .site-header {
-  position: absolute;
+  position: fixed;
   top: 0; left: 0;
   width: 100%;
   height: var(--header-h);
@@ -142,7 +142,7 @@ a { color: inherit; text-decoration: none; }
   font-weight: 400;
   font-size: 21px;
   letter-spacing: 0.06em;
-  color: var(--ink);
+  color: #ffffff;
   white-space: nowrap;
   transition: opacity 0.2s;
 }
@@ -151,7 +151,6 @@ a { color: inherit; text-decoration: none; }
 /* ─── Hero ───────────────────────────────────────────── */
 .hero {
   height: 220vh;
-  padding-top: var(--header-h);
   position: relative;
   overflow: hidden;
 }
