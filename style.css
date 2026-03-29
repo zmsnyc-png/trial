@@ -16,7 +16,7 @@
 
 /* ─── Base ───────────────────────────────────────────── */
 html, body {
-  background: var(--bg);
+  background: #ffffff;
   color: var(--ink);
   font-family: 'Inter', sans-serif;
   font-weight: 300;
