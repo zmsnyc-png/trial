@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Samuel Snider</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+
+    <nav class="nav-left">
+      <!-- SHOP with dropdown -->
+      <div class="nav-item">
+        <a class="nav-trigger" href="#">Shop</a>
+        <div class="dropdown dropdown--left">
+          <a href="#">All</a>
+          <a href="#">Knitwear</a>
+          <a href="#">Outerwear</a>
+          <a href="#">Tops</a>
+          <a href="#">Trousers</a>
+          <a href="#">Accessories</a>
+        </div>
+      </div>
+      <a class="nav-link" href="#">Search</a>
+    </nav>
+
+    <a href="/" class="site-name">Samuel&nbsp;Snider</a>
+
+    <nav class="nav-right">
+      <a class="nav-link" href="#">Cart&nbsp;0</a>
+      <!-- ABOUT with dropdown -->
+      <div class="nav-item">
+        <a class="nav-trigger" href="#">About</a>
+        <div class="dropdown dropdown--right">
+          <a href="#">Samuel Snider</a>
+          <a href="#">Materials</a>
+          <a href="#">Journal</a>
+          <a href="#">FAQ</a>
+        </div>
+      </div>
+    </nav>
+
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-image-wrap">
+      <img src="hero.jpg" alt="Portrait" class="hero-img" />
+      <button class="hero-arrow" aria-label="Next">&#8250;</button>
+    </div>
+  </section>
+
+  <!-- FEATURE SECTION -->
+  <section class="feature">
+
+    <!-- Col 1 — editorial photo -->
+    <div class="feature-editorial">
+      <img src="coat-editorial.jpg" alt="The Odile Coat editorial" />
+    </div>
+
+    <!-- Col 2 — title + discover -->
+    <div class="feature-title">
+      <p class="feature-label">The Odile Coat</p>
+      <a class="feature-discover" href="#">Discover</a>
+    </div>
+
+    <!-- Col 3 — description -->
+    <div class="feature-desc">
+      <p>Cut in a rich merino herringbone from Abraham Moon &amp; Sons in Yorkshire, England, the fabric brings together deep brown and green tones for a textured, earthy finish. A medium-weight outer layer with quiet presence.</p>
+    </div>
+
+    <!-- Col 4 — product image + details -->
+    <div class="feature-product" id="productCol">
+      <div class="feature-product-img">
+        <img id="productImg" src="coat-product.jpg" alt="Odile Coat" />
+      </div>
+      <div class="feature-product-info">
+        <p>Odile Coat</p>
+        <p>British Wool Herringbone</p>
+        <div class="product-variants">
+          <span class="variant active" data-index="1" data-src="coat-product.jpg">1</span>
+          <span class="variant" data-index="2" data-src="coat-product-2.jpg">2</span>
+          <span class="variant" data-index="3" data-src="coat-product-3.jpg">3</span>
+          <span class="variant" data-index="4" data-src="coat-product-4.jpg">4</span>
+        </div>
+        <p class="feature-colorway">Lichen Brown</p>
+      </div>
+    </div>
+
+  </section>
+
+  <script>
+    const img = document.getElementById('productImg');
+    document.querySelectorAll('.variant').forEach(v => {
+      v.addEventListener('click', () => {
+        img.src = v.dataset.src;
+        document.querySelectorAll('.variant').forEach(x => x.classList.remove('active'));
+        v.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,391 @@
+/* ─── Reset ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── Tokens ─────────────────────────────────────────── */
+:root {
+  --bg:           #ede8df;
+  --header-bg:    #ffffff;
+  --ink:          #1c1a18;
+  --ink-nav:      #4a4845;
+  --ink-dim:      #9e9b98;
+  --nav-size:     11.5px;
+  --nav-tracking: 0.08em;
+  --header-h:     52px;
+  --h-pad:        48px;
+}
+
+/* ─── Base ───────────────────────────────────────────── */
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ─── Header ─────────────────────────────────────────── */
+.site-header {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: var(--header-h);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  padding: 0 var(--h-pad);
+  background: transparent;
+  z-index: 200;
+  overflow: visible;
+  mix-blend-mode: exclusion;
+}
+
+/* ─── Nav rows ───────────────────────────────────────── */
+.nav-left,
+.nav-right {
+  display: flex;
+  /* stretch so nav-items are full header height → top:100% lands at header bottom */
+  align-items: stretch;
+  gap: 40px;
+}
+
+.nav-right { justify-content: flex-end; }
+
+/* ─── Plain nav link (no dropdown) ─────────────────── */
+.nav-link {
+  display: flex;
+  align-items: center;          /* vertically center text within header */
+  font-size: var(--nav-size);
+  letter-spacing: var(--nav-tracking);
+  text-transform: uppercase;
+  color: var(--ink-nav);
+  font-weight: 300;
+  white-space: nowrap;
+  transition: color 0.18s;
+}
+.nav-link:hover { color: var(--ink-dim); }
+
+/* ─── Nav item with dropdown ─────────────────────────── */
+.nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;          /* center trigger text vertically */
+}
+
+.nav-trigger {
+  display: flex;
+  align-items: center;
+  font-size: var(--nav-size);
+  letter-spacing: var(--nav-tracking);
+  text-transform: uppercase;
+  color: var(--ink-nav);
+  font-weight: 300;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.18s;
+  /* fill full height so hover zone covers entire header area above dropdown */
+  height: 100%;
+}
+
+.nav-item:hover .nav-trigger { color: var(--ink-dim); }
+
+/* ─── Dropdown panel ─────────────────────────────────── */
+/*
+  top: 100% of .nav-item = bottom of the header bar (because nav-item
+  stretches to full header height via align-items: stretch above).
+  This places the panel flush below the header, merging white-on-white.
+*/
+.dropdown {
+  position: absolute;
+  top: 100%;
+  padding: 24px 0 52px;        /* top breathing room + generous bottom = big rectangle */
+  background: var(--header-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  white-space: nowrap;
+  min-width: 140px;
+  /* hidden by default */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+}
+
+.dropdown--left  { left: 0; }
+.dropdown--right { right: 0; }
+
+/* show on hover */
+.nav-item:hover .dropdown {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ─── Dropdown links ─────────────────────────────────── */
+.dropdown a {
+  font-size: var(--nav-size);
+  letter-spacing: var(--nav-tracking);
+  font-weight: 300;
+  color: var(--ink-nav);
+  line-height: 1;
+  transition: color 0.18s;
+}
+
+.dropdown a:hover { color: var(--ink-dim); }
+
+/* ─── Brand name ─────────────────────────────────────── */
+.site-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'EB Garamond', serif;
+  font-weight: 400;
+  font-size: 21px;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+.site-name:hover { opacity: 0.5; }
+
+/* ─── Hero ───────────────────────────────────────────── */
+.hero {
+  height: 220vh;
+  padding-top: var(--header-h);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image-wrap {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.hero-arrow {
+  position: absolute;
+  right: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.5;
+  padding: 8px;
+  line-height: 1;
+  transition: opacity 0.2s;
+}
+.hero-arrow:hover { opacity: 0.9; }
+
+/* ─── Feature section ───────────────────────────────── */
+.feature {
+  display: grid;
+  grid-template-columns: 35fr 13fr 22fr 30fr;
+  height: 100vh;
+  background: #fff;
+  overflow: hidden;
+}
+
+/* Col 1 — full-bleed editorial photo */
+.feature-editorial {
+  height: 100%;
+  overflow: hidden;
+}
+
+.feature-editorial img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* Col 2 — title + discover, vertically centered */
+.feature-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 28px;
+  gap: 10px;
+}
+
+.feature-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10.5px;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.feature-discover {
+  font-family: 'Inter', sans-serif;
+  font-size: 10.5px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  display: inline-block;
+  transition: opacity 0.18s;
+}
+
+.feature-discover:hover { opacity: 0.45; }
+
+/* Col 3 — description, vertically centered */
+.feature-desc {
+  display: flex;
+  align-items: center;
+  padding: 0 28px;
+}
+
+.feature-desc p {
+  font-family: 'Inter', sans-serif;
+  font-size: 11.5px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+}
+
+/* Col 4 — product image small, right-aligned, info below */
+.feature-product {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+.feature-product-img {
+  width: 30%;
+  flex-shrink: 0;
+}
+
+.feature-product-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.feature-product-info {
+  width: 30%;
+  padding: 14px 0 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.feature-product-info p {
+  font-family: 'Inter', sans-serif;
+  font-size: 11.5px;
+  font-weight: 300;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+  line-height: 1.5;
+}
+
+.feature-colorway {
+  margin-top: 10px;
+}
+
+/* ─── Variant number selector ────────────────────────── */
+.product-variants {
+  display: none;          /* hidden by default */
+  gap: 14px;
+  margin: 0;
+}
+
+/* show when hovering the whole product column */
+.feature-product:hover .product-variants {
+  display: flex;
+}
+
+.variant {
+  font-family: 'Inter', sans-serif;
+  font-size: 11.5px;
+  font-weight: 300;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  user-select: none;
+}
+
+.variant:hover { opacity: 0.45; }
+
+.variant.active {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  :root { --h-pad: 20px; --nav-size: 10.5px; }
+  .nav-left, .nav-right { gap: 24px; }
+  .site-name { font-size: 18px; }
+
+  /* Feature: stack vertically on mobile */
+  .feature {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    height: auto;
+  }
+
+  /* Col 1 — editorial photo: full width, fixed height */
+  .feature-editorial {
+    height: 60vw;
+    min-height: 260px;
+  }
+
+  /* Col 2 + 3 sit side-by-side below the photo */
+  .feature-title {
+    grid-column: 1;
+    padding: 28px 20px 0;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .feature-desc {
+    grid-column: 1;
+    padding: 12px 20px 32px;
+    align-items: flex-start;
+  }
+
+  /* Col 4 — product: two-column mini layout (image right, info left) */
+  .feature-product {
+    grid-column: 1;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0 20px 48px;
+    gap: 20px;
+  }
+
+  .feature-product-img {
+    width: 52%;
+    flex-shrink: 0;
+  }
+
+  .feature-product-info {
+    width: auto;
+    flex: 1;
+    padding: 4px 0 0;
+  }
+
+  /* On mobile show variant numbers always (no hover) */
+  .product-variants {
+    display: flex;
+  }
+}
